@@ -17,11 +17,9 @@ steps:
     - script: dotnet build --configuration $(buildConfiguration)
       workingDirectory: backend
 
-    - task: DotNetCoreCLI@2
-      displayName: "Test"
-      inputs:
-        command: test
-        arguments: '--configuration $(buildConfiguration)'
+    - script: dotnet test  
+      workingDirectory: backend 
+      displayName: 'backend tests'
 
     - task: DotNetCoreCLI@2
       displayName: "Publish"
