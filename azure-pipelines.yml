@@ -15,31 +15,20 @@ variables:
 steps:
 - task: UseDotNet@2
   inputs:
+  packageType: 'sdk'
     version: '5.0.100'
-    packageType: 'sdk'
 
 - script: dotnet build --configuration $(buildConfiguration)  
   workingDirectory: backend  
-  displayName: 'backend build'
+displayName: 'backend build'
 
 - script: dotnet test  
+  workingDirectory: backend 
+  displayName: 'backend tests'
+
+- script: dotnet publish -c $(buildConfiguration) --self-contained true -r win-x86   
   workingDirectory: backend  
-  displayName: 'backendtests build'
-
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet publish $(buildConfiguration)'
-  inputs:
-    command: publish
-    publishWebProjects: False
-    arguments: '--self-contained --runtime win-x86 --configuration $(BuildConfiguration)'
-
-- script: npm install  
-  workingDirectory: frontend  
-  displayName: 'frontend install dependencies'
-
-- script: npm run test:ci  
-  workingDirectory: frontend  
-  displayName: 'frontend tests'
+  displayName: 'backend publish'
 
 - task: ArchiveFiles@2
   inputs:
@@ -55,6 +44,18 @@ steps:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)/backend'
     artifactName: 'backend' 
   displayName: 'backend publish to pipeline'
+
+- script: npm install  
+  workingDirectory: frontend  
+  displayName: 'frontend install dependencies'
+
+- script: npm run test:ci  
+  workingDirectory: frontend  
+  displayName: 'frontend tests'
+  
+- script: npm run build:staging
+  workingDirectory: frontend
+  displayName: 'frontend staging build'
 
 - task: ArchiveFiles@2
   inputs:
