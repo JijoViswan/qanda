@@ -25,11 +25,14 @@ steps:
 - script: dotnet test  
   workingDirectory: backend  
   displayName: 'backendtests build'
-- task: DotNetCoreCLI@2
 
-- script: dotnet publish -c $(buildConfiguration) --self-contained true -r win-x86   
-  workingDirectory: backend  
-  displayName: 'backend publish'
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet publish $(buildConfiguration)'
+  inputs:
+    command: publish
+    publishWebProjects: False
+    projects: 'Src/WebUI/WebUI.csproj'
+    arguments: '--self-contained --runtime win-x86 --configuration $(BuildConfiguration)'
 
 - script: npm install  
   workingDirectory: frontend  
