@@ -23,7 +23,7 @@ steps:
   displayName: 'backend build'
 
 - script: dotnet test  
-  workingDirectory: backendtests  
+  workingDirectory: backend  
   displayName: 'backendtests build'
 
 - script: dotnet publish -c $(buildConfiguration) --self-contained true -r win-x86   
