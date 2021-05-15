@@ -8,23 +8,9 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-    - task: UseDotNet@2 
-      displayName: "backend build"
-      inputs:
-        version: '5.0.100'
-        packageType: sdk
-
-    - script: dotnet test  
-      workingDirectory: backend 
-      displayName: 'backend tests'
-
     - script: npm install  
       workingDirectory: frontend  
       displayName: 'frontend install dependencies'
-
-    - script: npm run test:ci  
-      workingDirectory: frontend  
-      displayName: 'frontend tests'
   
     - script: npm run build:staging
       workingDirectory: frontend
