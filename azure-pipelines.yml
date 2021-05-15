@@ -15,8 +15,8 @@ variables:
 steps:
 - task: UseDotNet@2
   inputs:
-  packageType: 'sdk'
-    version: '5.0.100'
+   packageType: 'sdk'
+   version: '5.0.100'
 
 - script: dotnet build --configuration $(buildConfiguration)  
   workingDirectory: backend  
@@ -29,7 +29,6 @@ steps:
 - script: dotnet publish -c $(buildConfiguration) --self-contained true -r win-x86   
   workingDirectory: backend  
   displayName: 'backend publish'
-
 - task: ArchiveFiles@2
   inputs:
     rootFolderOrFile: 'backend/bin/Release/net5.0/win-x86/publish'
@@ -54,7 +53,7 @@ steps:
   displayName: 'frontend tests'
   
 - script: npm run build:staging
-  workingDirectory: frontend
+  workingDirectory: frontend
   displayName: 'frontend staging build'
 
 - task: ArchiveFiles@2
