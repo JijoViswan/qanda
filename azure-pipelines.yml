@@ -1,0 +1,36 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+
+    - task: UseDotNet@2 
+      displayName: "backend build"
+      inputs:
+        version: '5.0.100'
+        packageType: sdk
+    - script: dotnet build --configuration $(buildConfiguration)
+      workingDirectory: backend
+
+    - script: dotnet test  
+      workingDirectory: backend 
+      displayName: 'backend tests'
+
+    - task: DotNetCoreCLI@2
+      displayName: "Publish"
+      inputs:
+        command: 'publish'
+        publishWebProjects: true
+        arguments: '-r linux-x64 --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)/backend/$(Build.BuildId).zip'
+        zipAfterPublish: true
+
+    - task: PublishBuildArtifacts@1
+      displayName: "Upload Artifacts"
+      inputs:
+        pathtoPublish: '$(Build.ArtifactStagingDirectory)/backend' 
+        artifactName: 'backend'
