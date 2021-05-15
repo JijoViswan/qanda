@@ -1,5 +1,5 @@
 {
-  "baseUrl": "https://your-frontend-staging.azurewebsites.net",
+  "baseUrl": "https://qanda-frondend-staging.azurewebsites.net",
   "integrationFolder": "integration",
   "pluginsFile": "plugins/index.js",
   "supportFile": "support/index.js",
