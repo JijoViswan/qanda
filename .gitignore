@@ -9,4 +9,3 @@ node_modules
 backend/bin/*
 BackendTests/bin/*
 backend/.vs/QandA/v16/.suo
-.gitignore
