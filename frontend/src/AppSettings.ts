@@ -8,8 +8,8 @@ export const server =
 export const webAPIUrl = `${server}/api`;
 
 export const authSettings = {
-  domain: 'your-tenant-id.auth0.com',
-  client_id: 'your-client-id',
+  domain: 'dev-habitat.us.auth0.com',
+  client_id: '2eOQ0DjBUR0gyEsS59zlG4iStpyRnn3B',
   redirect_uri: window.location.origin + '/signin-callback',
   scope: 'openid profile QandAAPI email',
   audience: 'https://qanda',
